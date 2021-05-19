@@ -14,20 +14,19 @@ public class TbMatricula {
 		
 		try {
 			Statement stmt = conexao.createStatement();
-			String sqlDrop = "DROP TABLE TB_MATRICULA";
+			String sqlDrop = "DROP TABLE TB_MATRICULA CASCADE";
 			stmt.execute(sqlDrop);
 		} catch (Exception e) {
 
 			String sqlCreate = "CREATE TABLE TB_MATRICULA("
-					+ "CD_MATRICULA SERIAL NOT NULL,"
+					+ "CD_MATRICULA SERIAL PRIMARY KEY,"
 					+ "CD_ALUNO INT NOT NULL,"
 					+ "CD_DISCIPLINA INT NOT NULL,"
-					+ "PRIMARY KEY (CD_MATRICULA),"
-					+ "CONSTRAINT fk_aluno"
-					+ "FOREIGN KEY(CD_ALUNO)"
+					+ "CONSTRAINT fk_aluno "
+					+ "FOREIGN KEY(CD_ALUNO) "
 					+ "REFERENCES TB_ALUNO(CD_ALUNO),"
-					+ "CONSTRAINT fk_disciplina"
-					+ "FOREIGN KEY(CD_DISCIPLINA)"
+					+ "CONSTRAINT fk_disciplina "
+					+ "FOREIGN KEY(CD_DISCIPLINA) "
 					+ "REFERENCES TB_DISCIPLINA(CD_DISCIPLINA)" 
 					+ ")";
 			

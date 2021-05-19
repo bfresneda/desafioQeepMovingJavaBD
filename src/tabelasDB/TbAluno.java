@@ -14,16 +14,15 @@ public class TbAluno {
 			
 			try {
 				Statement stmt = conexao.createStatement();
-				String sqlDrop = "DROP TABLE TB_ALUNO";
+				String sqlDrop = "DROP TABLE TB_ALUNO CASCADE";
 				stmt.execute(sqlDrop);
 				
 			} catch (Exception e) {
 				Statement stmt = conexao.createStatement();
 				String sqlCreate = "CREATE TABLE TB_ALUNO("
-						+ "CD_ALUNO SERIAL NOT NULL,"
+						+ "CD_ALUNO SERIAL PRIMARY KEY,"
 						+ "NOME VARCHAR(100),"
-						+ "CPF VARCHAR(12),"
-						+ "PRIMARY KEY(CD_ALUNO)"
+						+ "CPF VARCHAR(12)"
 						+ ")";
 				
 				stmt.execute(sqlCreate);
