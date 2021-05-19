@@ -3,6 +3,10 @@ package model;
 public class Aluno extends Pessoa{
 
 	private int codigoAluno;
+	
+	public Aluno(String nome, String cpf) {
+		super(nome, cpf);
+	}
 
 	public Aluno(String nome, String cpf, int codigoAluno) {
 		super(nome, cpf);

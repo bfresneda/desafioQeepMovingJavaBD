@@ -1,10 +1,18 @@
 package aplicacao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.Scanner;
+
+import conexao.ConnectionFactory;
+import model.Aluno;
 
 public class Aplicacao {
 	
 	public static void menuPrincipal() {
+	
+	Connection conexao = ConnectionFactory.getConexao();
 		
 	System.out.println();	
 	System.out.println(" ______________________________");
@@ -64,24 +72,59 @@ public class Aplicacao {
 	}
 	
 	public static void menuEdicaoAluno(Scanner entrada) {
-	System.out.println();	
-	System.out.println();	
-	System.out.println(" ______________________________");
-	System.out.println("|                              |");
-	System.out.println("| Universidade se vira moleque |");
-	System.out.println("|______________________________|");
-	System.out.println("|                              |");
-	System.out.println("|     TELA DE EDICAO ALUNO     |");
-	System.out.println("|______________________________|");
-	System.out.println("|                              |");
-	System.out.println("|	1 - Cadastrar	       |");
-	System.out.println("|	2 - Alterar            |");
-	System.out.println("|	3 - Excluir            |");
-	System.out.println("|	4 - Consultar          |");
-	System.out.println("|	5 - Listar todos       |");
-	System.out.println("|	4 - MENU ANTERIOR      |");
-	System.out.println("|______________________________|");
-	System.out.print("Digite a opção desejada: ");
+		int opcaoMenuEdicao = 4;
+		do {			
+			System.out.println();	
+			System.out.println();	
+			System.out.println(" ______________________________");
+			System.out.println("|                              |");
+			System.out.println("| Universidade se vira moleque |");
+			System.out.println("|______________________________|");
+			System.out.println("|                              |");
+			System.out.println("|     TELA DE EDICAO ALUNO     |");
+			System.out.println("|______________________________|");
+			System.out.println("|                              |");
+			System.out.println("|	1 - Cadastrar	       |");
+			System.out.println("|	2 - Alterar            |");
+			System.out.println("|	3 - Excluir            |");
+			System.out.println("|	4 - Consultar          |");
+			System.out.println("|	5 - Listar todos       |");
+			System.out.println("|	4 - MENU ANTERIOR      |");
+			System.out.println("|______________________________|");
+			System.out.print("Digite a opção desejada: ");
+			
+			opcaoMenuEdicao = entrada.nextInt();
+			switch(opcaoMenuEdicao) {
+			case 1:
+				System.out.println(" ______________________________");
+				System.out.println("|                              |");
+				System.out.println("|     TELA CADASTRO DE ALUNO   |");
+				System.out.println("|______________________________|");
+				entrada.nextLine();
+				System.out.print("Digite o nome do aluno: ");
+				String nome = entrada.nextLine();
+				System.out.print("Digite o CPF do aluno: ");
+				String cpf = entrada.nextLine();
+				
+				try {
+					Connection conexao = ConnectionFactory.getConexao();
+					String sql= "INSERT INTO TB_ALUNO(NOME, CPF) VALUES(?,?)";
+					PreparedStatement stmt = conexao.prepareStatement(sql);
+					stmt.setString(1,nome);
+					stmt.setString(2,cpf);
+					stmt.execute();
+					conexao.close();
+					System.out.printf("Aluno %s inserido com sucesso",nome);
+				} catch (Exception e) {
+					System.out.println("Deu errado o insert");
+					System.out.println(e.getMessage());
+				}
+				
+			}			
+			
+		}while(opcaoMenuEdicao != 4);
+	
+	
 	}
 	
 	public static void cadastroAluno() {
